@@ -24,7 +24,7 @@ def search_graph():
     print(search_term, graph_uri)
     sparql_query = f"""
     PREFIX crm: <http://erlangen-crm.org/current/>
-    SELECT DISTINCT ?subject ?object
+    SELECT DISTINCT ?subject ?nameLabel
     WHERE {{
       ?subject ?predicate ?object; 
           crm:P1_is_identified_by ?name;
