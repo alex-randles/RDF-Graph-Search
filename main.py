@@ -19,11 +19,11 @@ def search_graph():
     graph_uri = request.form.get("graph_uri")
     print(search_term, graph_uri)
     # VRTI Query
-    sparql_query = f"""
+    sparql_query = """
     PREFIX crm: <http://erlangen-crm.org/current/>
     PREFIX vrti: <http://ont.virtualtreasury.ie/ontology#>
     SELECT DISTINCT ?person ?occupation ?gender
-    WHERE {{
+    WHERE {
       ?person ?predicate ?object; 
           crm:P1_is_identified_by ?name;
            crm:P2_has_type  ?gender;
@@ -33,7 +33,7 @@ def search_graph():
       ?name rdfs:label ?nameLabel  ;
             a   crm:E41_Appellation  . 
       FILTER CONTAINS(LCASE(?nameLabel),'{search_term}')     
-     }}
+     }
     LIMIT 100
     """
     # DBpedia Query
@@ -67,6 +67,8 @@ def search_graph():
     # }}
     # LIMIT 10
     # """
+    # Add the search term to the SPARQL query
+    sparql_query = sparql_query.replace("{search_term}", search_term)
     table_rows = {}
     try:
         sparql = SPARQLWrapper(graph_uri)
