@@ -35,7 +35,7 @@ def search_graph():
             a   crm:E41_Appellation  . 
       FILTER CONTAINS(LCASE(?nameLabel),'{search_term}')     
      }
-    LIMIT 1000
+    LIMIT 100
     """
     sparql_query = sparql_query.replace("{search_term}", search_term.lower())
     table_rows = {}
