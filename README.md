@@ -1,4 +1,4 @@
-# RDF-Graph-Searcher
+# RDF-Graph-Search
 
 The following repository includes a Python web application which can be used to execute and display the results of SPARQL queries on endpoints.
 
