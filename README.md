@@ -19,8 +19,8 @@ The requirements can be installed using the following command: `pip3 install -r 
 ### Running the Application
 The application can be started using the following command: `python3 main.py`
 
+The interface of the application will run on localhost port 5000 by default [127.0.0.1:5000](http://127.0.0.1:5000).
 
-The interface of the application will run on localhost port 5000 by default [127.0.0.1:5000](http://127.0.0.1:5000)
 The port can be configured on line 100 of `main.py` by changing the respective variable `app.run(debug=True, host="127.0.0.1", port=5000)`
 
 ### Changing the SPARQL Query
