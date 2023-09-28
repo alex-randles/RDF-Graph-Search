@@ -1,6 +1,6 @@
 # RDF-Graph-Searcher
 
-The following repository includes a Python web application which can be used to execute and display the results of SPARQL queries executed on endpoints.
+The following repository includes a Python web application which can be used to execute and display the results of SPARQL queries on endpoints.
 
 
 
@@ -21,6 +21,7 @@ The application can be started using the following command: `python3 main.py`
 
 
 The interface of the application will run on localhost port 5000 by default [127.0.0.1:5000](http://127.0.0.1:5000)
+The port can be configured on line 100 of `main.py` by changing the respective variable `app.run(debug=True, host="127.0.0.1", port=5000)`
 
 ### Changing the SPARQL Query
 The SPARQL query executed by the application can be changed by editing the `sparql_query` variable on line 22 of `main.py`. 
