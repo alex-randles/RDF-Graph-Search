@@ -7,9 +7,9 @@ The following repository includes a Python web application which can be used to 
 ### Installation Guide
 The following sections cover the installation and running of the application. The application requires `python 3.10` or greater to run.
 ### Downloding Source Code 
-The following command can be used to download this repository: ``
+The following command can be used to download this repository: `git clone https://github.com/alex-randles/RDF-Graph-Search.git`
 
-Alternatively, you can download the a ZIP file containing the code here: [https://github.com/alex-randles/RDF-Graph-Searcher/archive/refs/heads/main.zip](https://github.com/alex-randles/RDF-Graph-Searcher/archive/refs/heads/main.zip)
+Alternatively, you can download the a ZIP file containing the code here: [https://github.com/alex-randles/RDF-Graph-Search/archive/refs/heads/main.zip](https://github.com/alex-randles/RDF-Graph-Search/archive/refs/heads/main.zip)
 ### Requirements 
 The `requirements.txt` file contains the two libraries which are required to run the application. 
 * [Flask](https://pythonbasics.org/what-is-flask-python/): Responsible for hosting the web application. 
