@@ -18,7 +18,8 @@ def search_graph():
     search_term = request.form.get("search_term")
     graph_uri = request.form.get("graph_uri")
     print(search_term, graph_uri)
-    # VRTI Query
+    # SPARQL query executed on endpoint
+    # {search_term} is replaced by the term entered into the interface
     sparql_query = """
     PREFIX crm: <http://erlangen-crm.org/current/>
     PREFIX vrti: <http://ont.virtualtreasury.ie/ontology#>
@@ -34,41 +35,9 @@ def search_graph():
             a   crm:E41_Appellation  . 
       FILTER CONTAINS(LCASE(?nameLabel),'{search_term}')     
      }
-    LIMIT 100
+    LIMIT 1000
     """
-    # DBpedia Query
-    # sparql_query = f"""
-    #     PREFIX dbo: <http://dbpedia.org/ontology/>
-    #     SELECT ?athlete ?place
-    #     WHERE
-    #     {{
-    #       ?athlete  rdfs:label      ?label ;
-    #                 dbo:birthPlace  ?place .
-    #       ?place    a               dbo:City ;
-    #                 rdfs:label      ?cityName .
-    #                 FILTER (STR(?cityName) = '{search_term}')
-    #     }}
-    #     LIMIT 100
-    # """
-    # Wikidata Query
-    # sparql_query = f"""
-    # PREFIX wd: <http://www.wikidata.org/entity/>
-    # PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-    # SELECT DISTINCT ?item ?itemLabel ?occupationLabel
-    # WHERE
-    # {{
-    #       ?item wdt:P31 wd:Q5;
-    #           wdt:P19/wdt:P131* wd:Q60;
-    #           wdt:P27 wd:Q30;
-    #           wdt:P106 ?occupation;
-    #           rdfs:label ?itemLabel .
-    #      ?occupation wdt:P3321 ?occupationLabel  .
-    #      FILTER(LANG(?itemLabel) = "en" && LANG(?occupationLabel) = "en" && STR(?occupationLabel) = "{search_term}")
-    # }}
-    # LIMIT 10
-    # """
-    # Add the search term to the SPARQL query
-    sparql_query = sparql_query.replace("{search_term}", search_term)
+    sparql_query = sparql_query.replace("{search_term}", search_term.lower())
     table_rows = {}
     try:
         sparql = SPARQLWrapper(graph_uri)
