@@ -11,24 +11,33 @@
 <h1 class="text-center text-secondary mt-3">Search Knowledge Graph</h1>
 <form class="text-center my-4" action="{{ url_for('index') }}" id="search-form" method="POST" >
     <div class="form-group">
-        <div class="input-group mb-3 w-50 mx-auto">
+        <div class="input-group mb-3 w-75 mx-auto">
             <div class="input-group-prepend">
                 <span class="input-group-text btn btn-secondary" id="basic-addon1">Search Term</span>
             </div>
             <input type="text" id="search-term" name="search-term" class="form-control" placeholder="Enter Search Term...." aria-label="Username" aria-describedby="basic-addon1" required>
         </div>
     </div>
-        <div class="form-group">
-        <div class="input-group mb-3 w-50 mx-auto">
+    <div class="form-group">
+        <div class="input-group mb-3 w-75 mx-auto">
             <div class="input-group-prepend">
                 <span class="input-group-text btn btn-secondary" id="basic-addon1">Knowledge Graph URI</span>
             </div>
-            <input type="url" value="https://blazegraph.virtualtreasury.ie/blazegraph/namespace/b2022/sparql" id="graph-uri" name="graph-uri" class="form-control" placeholder="Enter Graph URI...." aria-label="Username" aria-describedby="basic-addon1" readonly>
+            <input type="url" id="graph-uri" name="graph-uri" class="form-control" placeholder="Enter Graph URI...." aria-label="Username" aria-describedby="basic-addon1">
+
+            <div class="input-group-append ms-1">
+                    <select class="form-select select-sparql-endpoint">
+                        <option value="" selected>None</option>
+                        <option value="VRTI">VRTI</option>
+                        <option value="Wikidata">Wikidata</option>
+                        <option value="DBpedia">DBpedia</option>
+                    </select>
+            </div>
         </div>
     </div>
     <button type="submit" id="search-button" class="btn btn-primary mt-3">Search</button>
-<div class="spinner-border my-3" id="spinner" role="status" style="display:none;">
-</div>
+    <div class="spinner-border my-3" id="spinner" role="status" style="display:none;">
+    </div>
 </form>
 
 <div id="search-results" style="display:none;">
@@ -49,7 +58,26 @@
 </body>
 </html>
 
-
+<script>
+    var sparql_endpoints = {
+        "VRTI": "https://blazegraph.virtualtreasury.ie/blazegraph/namespace/b2022/sparql",
+        "DBpedia": "https://dbpedia.org/sparql",
+        "Wikidata": "https://query.wikidata.org/bigdata/namespace/wdq/sparql",
+    };
+    $(".select-sparql-endpoint").change(function(){
+        var selected_endpoint = $(this).val();
+        if (!selected_endpoint) {
+           $("#graph-uri").val("")
+        }
+        var endpoint_uri = sparql_endpoints[selected_endpoint];
+        if (endpoint_uri) {
+           $("#graph-uri").val(endpoint_uri)
+        }
+        else {
+           $("#graph-uri").val()
+        }
+    });
+</script>
 <script>
     $(document).on('submit','#search-form',function(e){
       e.preventDefault();
@@ -89,7 +117,7 @@
                      new_table_row = new_table_row + "<td>" + val + "</td>";
                  }
                  else {
-                      new_table_row = new_table_row + "<td><a href='" + val + "'>" + val + "</td>";
+                      new_table_row = new_table_row + "<td><a href='" + val + "'>" + getSuffix(val) + "</td>";
                  }
               });
               $('#search-results-table tr:last').after('<tr>' + new_table_row + '</tr>');
@@ -102,4 +130,16 @@
         }
       });
     });
+</script>
+<script>
+    function getSuffix(text) {
+        if (text) {
+            var text = text.toString();
+            text = text.split("/")[text.split("/").length - 1]
+            text = text.split('_')[0];
+            return text;
+        } else {
+            return text;
+        }
+    }
 </script>
