@@ -7,10 +7,7 @@ app.config['SECRET_KEY'] = "x633UE2xYRC"
 @app.route('/', methods=["GET"])
 def index():
     if request.method == "GET":
-        search_graph_uri = "https://blazegraph.virtualtreasury.ie"
-        return render_template("index.html",
-                               search_graph_uri=search_graph_uri
-                               )
+        return render_template("index.html")
 
 
 @app.route('/search-graph', methods=["GET", "POST"])
