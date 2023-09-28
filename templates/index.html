@@ -133,10 +133,14 @@
 </script>
 <script>
     function getSuffix(text) {
+        if (text.indexOf("#") != -1) {
+           var seperator = "#";
+        } else {
+           var seperator = "/";
+        }
         if (text) {
             var text = text.toString();
-            text = text.split("/")[text.split("/").length - 1]
-            text = text.split('_')[0];
+            text = text.split(seperator)[text.split(seperator).length - 1]
             return text;
         } else {
             return text;
