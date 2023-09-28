@@ -11,11 +11,11 @@ The following command can be used to download this repository: `git clone https:
 
 Alternatively, you can download the a ZIP file containing the code here: [https://github.com/alex-randles/RDF-Graph-Search/archive/refs/heads/main.zip](https://github.com/alex-randles/RDF-Graph-Search/archive/refs/heads/main.zip)
 ### Requirements 
-The `requirements.txt` file contains the two libraries which are required to run the application. 
+The `requirements.txt` file contains the two packages which are required to run the application. 
 * [Flask](https://pythonbasics.org/what-is-flask-python/): Responsible for hosting the web application. 
 * [SPARQLWrapper](https://rdflib.dev/sparqlwrapper/doc/1.8.5/main.html): Responsible for executing SPARQL queries on endpoints. 
 
-The requirements can be installed using the following command: `pip3 install -r requirements.txt` 
+The packages can be installed using the following command: `pip3 install -r requirements.txt` 
 ### Running the Application
 The application can be started using the following command: `python3 main.py`
 
