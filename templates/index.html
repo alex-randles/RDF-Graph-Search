@@ -21,17 +21,17 @@
     <div class="form-group">
         <div class="input-group mb-3 w-75 mx-auto">
             <div class="input-group-prepend">
-                <span class="input-group-text btn btn-secondary" id="basic-addon1">Knowledge Graph URI</span>
+                <span class="input-group-text btn btn-secondary">Knowledge Graph URI</span>
             </div>
-            <input type="url" id="graph-uri" name="graph-uri" class="form-control" placeholder="Enter Graph URI...." aria-label="Username" aria-describedby="basic-addon1">
+            <input type="url" id="graph-uri" name="graph-uri" class="form-control" placeholder="Enter Graph URI...." required>
 
             <div class="input-group-append ms-1">
-                    <select class="form-select select-sparql-endpoint">
-                        <option value="" selected>None</option>
-                        <option value="VRTI">VRTI</option>
-                        <option value="Wikidata">Wikidata</option>
-                        <option value="DBpedia">DBpedia</option>
-                    </select>
+                <select class="form-select select-sparql-endpoint">
+                    <option value="" selected>None</option>
+                    <option value="VRTI">VRTI</option>
+                    <option value="Wikidata">Wikidata</option>
+                    <option value="DBpedia">DBpedia</option>
+                </select>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
 <div id="search-results" style="display:none;">
     <h3 class="px-2 text-decoration-underline">Results</h3>
     <table id="search-results-table" class="table table-striped mx-auto">
-        <thead>
+        <thead id="search-results-table-head">
         <tr>
             <th scope="col">#</th>
         </tr>
@@ -54,6 +54,7 @@
 </div>
 
 <div id="search-result-message" class="text-center h3" style="display:none;"></div>
+
 
 </body>
 </html>
@@ -77,15 +78,23 @@
            $("#graph-uri").val()
         }
     });
-</script>
-<script>
+
     $(document).on('submit','#search-form',function(e){
       e.preventDefault();
       $("#search-result-message").hide();
       $("#search-results").hide();
       $("#search-button").hide();
       $("#spinner").show();
-      $("#search-results-table-body").empty();
+      var refreshed_table = `
+        <thead id="search-results-table-head">
+        <tr>
+            <th scope="col">#</th>
+        </tr>
+        </thead>
+            <tbody id="search-results-table-body">
+        </tbody>
+      `;
+      $("#search-results-table").html(refreshed_table);
       $.ajax({
         type:'POST',
         url:'{{ url_for('search_graph') }}',
@@ -95,6 +104,12 @@
         },
         success:function(response)
         {
+            if (typeof response == "string") {
+                $("#search-result-message").html("Query could not be executed on endpoint").show();
+                $("#spinner").hide();
+                $("#search-button").show();
+                return false;
+            }
             if (jQuery.isEmptyObject(response)) {
                 $("#search-result-message").text("No results from SPARQL Query").show();
                 $("#spinner").hide();
@@ -130,8 +145,7 @@
         }
       });
     });
-</script>
-<script>
+
     function getSuffix(text) {
         if (text.indexOf("#") != -1) {
            var seperator = "#";
