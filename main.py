@@ -4,17 +4,13 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["GET"])
 def index():
     if request.method == "GET":
         search_graph_uri = "https://blazegraph.virtualtreasury.ie"
         return render_template("index.html",
                                search_graph_uri=search_graph_uri
                                )
-    else:
-        print("data posted")
-        print(request.form)
-        return "dhdhdh"
 
 
 @app.route('/search-graph', methods=["GET", "POST"])
@@ -92,9 +88,9 @@ def search_graph():
         print(table_rows)
         return table_rows
     except Exception as e:
-        print(e)
+        print(f"Exception: {e}")
         return table_rows
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="127.0.0.1", port=5000)
