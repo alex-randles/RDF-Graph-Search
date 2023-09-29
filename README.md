@@ -31,4 +31,4 @@ The string `{search_term}` in the SPARQL query will be replaced by the search te
 ### Sample Query 
 The SPARQL query already included in `main.py` can be executed on the [Virtual Treasury Knowlege Graph](https://virtualtreasury.ie/knowledge-graph). The query will return people with the name entered into the interface. 
 
-The sample query can be executed by accessing the interface, **selecting the VRTI endpoint from the dropdown on the right** and entering a name.
+The sample query can be executed by accessing the interface, **selecting the VRTI endpoint from the dropdown on the right** and entering a name. The sample query will **not return a result** for any other endpoint available in the dropdown.
