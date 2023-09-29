@@ -13,9 +13,9 @@
     <div class="form-group">
         <div class="input-group mb-3 w-75 mx-auto">
             <div class="input-group-prepend">
-                <span class="input-group-text btn btn-secondary">Search Term</span>
+                <span class="input-group-text btn btn-secondary">Query Parameter</span>
             </div>
-            <input type="text" id="search-term" name="search-term" class="form-control" placeholder="Enter Search Term...." required>
+            <input type="text" id="query-parameter" name="query-parameter" class="form-control" placeholder="Enter the Query Parameter...." required>
         </div>
     </div>
     <div class="form-group">
@@ -99,7 +99,7 @@
         type:'POST',
         url:'{{ url_for('search_graph') }}',
         data:{
-            search_term:$('#search-term').val(),
+            query_parameter:$('#query-parameter').val(),
             graph_uri:$('#graph-uri').val(),
         },
         success:function(response)

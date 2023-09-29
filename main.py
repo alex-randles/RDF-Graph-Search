@@ -12,11 +12,11 @@ def index():
 
 @app.route('/search-graph', methods=["GET", "POST"])
 def search_graph():
-    search_term = request.form.get("search_term")
+    query_parameter = request.form.get("query_parameter")
     graph_uri = request.form.get("graph_uri")
-    print(search_term, graph_uri)
+    print(query_parameter, graph_uri)
     # SPARQL query executed on endpoint
-    # {search_term} is replaced by the term entered into the interface
+    # {query_parameter} is replaced by the term entered into the interface
     sparql_query = """
     PREFIX crm: <http://erlangen-crm.org/current/>
     PREFIX vrti: <http://ont.virtualtreasury.ie/ontology#>
@@ -30,11 +30,11 @@ def search_graph():
                   rdfs:label ?occupationName   .
       ?name rdfs:label ?nameLabel  ;
             a   crm:E41_Appellation  . 
-      FILTER CONTAINS(LCASE(?nameLabel),'{search_term}')     
+      FILTER CONTAINS(LCASE(?nameLabel),'{query_parameter}')     
      }
     LIMIT 100
     """
-    sparql_query = sparql_query.replace("{search_term}", search_term.lower())
+    sparql_query = sparql_query.replace("{query_parameter}", query_parameter.lower())
     table_rows = {}
     try:
         sparql = SPARQLWrapper(graph_uri)

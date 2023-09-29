@@ -26,7 +26,7 @@ The port can be configured on line 66 of `main.py` by changing the respective va
 ### Changing the SPARQL Query
 The SPARQL query executed by the application can be changed by editing the `sparql_query` variable on line 20 of `main.py`. 
 
-The string `{search_term}` in the SPARQL query will be replaced by the search term entered into the interface.
+The string `{query_parameter}` in the SPARQL query will be replaced by the query parameter entered into the interface.
 
 ### Sample Query 
 The SPARQL query already included in `main.py` can be executed on the [Virtual Treasury Knowlege Graph](https://virtualtreasury.ie/knowledge-graph). The query will return people with the name entered into the interface. 
